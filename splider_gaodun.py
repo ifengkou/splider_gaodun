@@ -22,12 +22,18 @@ def handle_buys(buys):
 
 def writeToCSV(courses):
     with open('result2.csv', 'a',newline='',encoding='utf-8-sig') as f:
-        writer = csv.writer(f)
+        f.write(xxx)
+        #writer = csv.writer(f)
         rows = []
         for c in courses:
             row = [c['cata'],c['title'],c['price'],c['old_price'],c['buy_numb']]
             rows.append(row)
         writer.writerows(rows)
+def writeToFile(courses):
+        with open('result.csv', 'a') as f:
+            for c in courses:
+                course_str = ','.join([c['cata'],c['title'],c['price'],c['old_price'],c['buy_numb']])
+                f.write('\n'+course_str)
 
 class GaodunService:
     def __init__(self):
@@ -41,11 +47,6 @@ class GaodunService:
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,hu;q=0.6',
             'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3'
         }
-    def writeToFile(self,courses):
-        with open('result.csv', 'a') as f:
-            for c in courses:
-                course_str = ','.join([c['cata'],c['title'],c['price'],c['old_price'],c['buy_numb']])
-                f.write('\n'+course_str)
 
     def parseSinglePage(self,cata,page):
         url = self.query_url+'/' + cata + 'p'+ page
